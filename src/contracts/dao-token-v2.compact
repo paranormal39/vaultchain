@@ -1,0 +1,33 @@
+pragma language_version 0.17;
+
+import CompactStandardLibrary;
+
+// DAO Token Contract V2 - Ultra Simple Version
+// Avoids witness disclosure issues
+
+export ledger tokenSupply: Counter;
+export ledger admin: Uint<254>;
+
+// Simple initialization with fixed values
+export circuit initialize(): [] {
+  admin = 12345;
+  tokenSupply.increment(1);
+}
+
+// Simple token operations
+export circuit addToken(): [] {
+  tokenSupply.increment(1);
+}
+
+export circuit addMultipleTokens(): [] {
+  tokenSupply.increment(5);
+}
+
+// Query functions (no state changes)
+export circuit getTotalSupply(): Uint<64> {
+  return tokenSupply;
+}
+
+export circuit getAdmin(): Uint<254> {
+  return admin;
+}

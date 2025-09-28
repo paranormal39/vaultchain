@@ -1,0 +1,82 @@
+pragma language_version 0.17;
+
+import CompactStandardLibrary;
+
+// DAO Governance Contract - Proposal and Voting System
+// Designed for proof server compatibility
+
+export ledger proposalCount: Counter;
+export ledger admin: Uint<254>;
+export ledger isSetup: Uint<8>;
+
+// Proposal structure (simplified for ZK compatibility)
+export ledger currentProposalId: Uint<64>;
+export ledger currentProposalType: Uint<8>; // 1=Emergency, 2=Development, 3=Marketing, etc.
+export ledger currentProposalAmount: Uint<64>;
+export ledger currentProposalStatus: Uint<8>; // 0=Pending, 1=Active, 2=Passed, 3=Failed
+
+// Voting tracking
+export ledger totalVotes: Counter;
+export ledger yesVotes: Counter;
+export ledger noVotes: Counter;
+
+// Initialize governance system
+export circuit setupGovernance(): [] {
+  if (isSetup == 0) {
+    admin = 12345;
+    isSetup = 1;
+    proposalCount.increment(1); // Start with proposal ID 1
+  }
+}
+
+// Create new proposal (simplified to avoid witness disclosure)
+export circuit createProposal(): Uint<64> {
+  currentProposalId = proposalCount;
+  currentProposalType = 1; // Default to emergency
+  currentProposalAmount = 1000; // Default amount
+  currentProposalStatus = 1; // Active
+  
+  // Note: Cannot reset counters, they only increment
+  
+  proposalCount.increment(1);
+  return currentProposalId;
+}
+
+// Cast yes vote
+export circuit castYesVote(): [] {
+  totalVotes.increment(1);
+  yesVotes.increment(1);
+}
+
+// Cast no vote  
+export circuit castNoVote(): [] {
+  totalVotes.increment(1);
+  noVotes.increment(1);
+}
+
+// Finalize proposal (simple majority)
+export circuit finalizeProposal(): Uint<8> {
+  if (yesVotes > noVotes) {
+    currentProposalStatus = 2; // Passed
+  } else {
+    currentProposalStatus = 3; // Failed
+  }
+  return currentProposalStatus;
+}
+
+// Query functions
+export circuit getCurrentProposal(): [Uint<64>, Uint<8>, Uint<64>, Uint<8>] {
+  return [currentProposalId, currentProposalType, currentProposalAmount, currentProposalStatus];
+}
+
+export circuit getVoteCounts(): [Uint<64>, Uint<64>, Uint<64>] {
+  return [totalVotes, yesVotes, noVotes];
+}
+
+export circuit getProposalCount(): Uint<64> {
+  return proposalCount;
+}
+
+export circuit getAdmin(): Uint<254> {
+  return admin;
+}

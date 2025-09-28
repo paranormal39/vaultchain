@@ -1,0 +1,43 @@
+{
+  "name": "dao-treasurer-eliza-agent",
+  "version": "1.0.0",
+  "description": "AI DAO Treasurer agent built with ElizaOS for privacy-first governance",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "eliza",
+    "ai",
+    "dao",
+    "treasury",
+    "blockchain",
+    "privacy",
+    "zero-knowledge",
+    "midnight-network"
+  ],
+  "dependencies": {
+    "@elizaos/core": "latest",
+    "@elizaos/plugin-bootstrap": "latest",
+    "@elizaos/plugin-coinbase": "latest",
+    "@elizaos/plugin-evm": "latest",
+    "@elizaos/plugin-image-generation": "latest",
+    "@elizaos/plugin-knowledge": "latest",
+    "@elizaos/plugin-mcp": "^1.0.8",
+    "@elizaos/plugin-node": "latest",
+    "@elizaos/plugin-solana": "latest",
+    "@elizaos/plugin-web-search": "latest",
+    "axios": "^1.12.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "openai": "^4.104.0"
+  },
+  "devDependencies": {
+    "@elizaos/cli": "^1.5.11",
+    "@types/node": "^20.0.0"
+  },
+  "author": "DAO Treasurer Team",
+  "license": "Apache-2.0"
+}
