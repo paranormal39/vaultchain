@@ -1,0 +1,18 @@
+# ── VaultChain / Eliza AI Agent Cluster ───────────────────────────────────────
+# Wraps eliza-agent (Matthew + Xara + Ada) for Evernode deployment.
+# Build: docker build -f evernode/Dockerfile.eliza-agent -t vaultchain/eliza-agent:latest .
+FROM node:20-alpine AS base
+WORKDIR /app
+
+COPY eliza-agent/package.json eliza-agent/package-lock.json* ./
+RUN npm ci --omit=dev
+
+# Copy agent source and knowledge base
+COPY eliza-agent/ .
+
+EXPOSE 3001
+
+ENV NODE_ENV=production
+ENV PORT=3001
+
+CMD ["node", "index.js"]

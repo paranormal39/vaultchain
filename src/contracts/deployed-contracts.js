@@ -165,9 +165,9 @@ export const DEPLOYED_CONTRACTS = {
 // Network configuration
 export const NETWORK_CONFIG = {
   name: "Midnight TestNet",
-  walletAddress: "mn_shield-addr_test1av0ff3dxu2cnj4fa7y6wa3ujfwayey7fk5yhq7h2mncymtcrl8qsxqr8rgzhwnju9hh9vmqkr8ggfhaxjc6ckawkvjhjsfegvqf984wz4gcnakd8",
-  walletSeed: "9201144ea49c37f08cccc2b9fdbd11d1e43fcbe8925a8845f2d0f8d08340c519",
-  balance: "967,810,120 DUST"
+  walletAddress: process.env.MIDNIGHT_WALLET_ADDRESS || "mn_shield-addr_test_not_configured",
+  walletSeed: null, // Never stored in source — load from MIDNIGHT_WALLET_SEED env var
+  balance: process.env.MIDNIGHT_WALLET_BALANCE || "0 DUST"
 };
 
 // Deployment status

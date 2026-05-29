@@ -1,0 +1,23 @@
+# ── VaultChain / Midnight MCP Server ──────────────────────────────────────────
+# Wraps midnight-mcp-server for Evernode HotPocket deployment.
+# Build: docker build -f evernode/Dockerfile.mcp-server -t vaultchain/mcp-server:latest .
+FROM node:20-alpine AS base
+WORKDIR /app
+
+# Install dependencies (yarn used by MCP server)
+COPY midnight-mcp-server/package.json midnight-mcp-server/yarn.lock* ./
+RUN yarn install --frozen-lockfile --production 2>/dev/null || yarn install --production
+
+# Copy source
+COPY midnight-mcp-server/ .
+
+# Expose Midnight MCP port
+EXPOSE 3000
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s \
+  CMD wget -qO- http://localhost:3000/health || exit 1
+
+CMD ["node", "simple-wallet-server.js"]

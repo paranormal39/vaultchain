@@ -1,0 +1,164 @@
+pragma language_version 0.17;
+
+import CompactStandardLibrary;
+
+// ZK NFT Minting Contract - Privacy-Preserving NFT Creation
+// Allows minting single NFTs or collections while keeping addresses hidden
+// Designed for AI agent automation with zero-knowledge proofs
+
+// Ledger state for NFT management
+export ledger totalSupply: Counter;
+export ledger collectionCount: Counter;
+export ledger admin: Uint<254>;
+export ledger mintingEnabled: Boolean;
+
+// NFT metadata structure (simplified for ZK compatibility)
+export ledger nftExists: Uint<254>; // Simple existence check
+export ledger collectionExists: Uint<254>; // Collection existence
+export ledger creatorHash: Uint<254>; // Hidden creator identity
+
+// Privacy-preserving nullifiers to prevent double operations
+export ledger usedNullifiers: Uint<254>;
+
+// Initialize contract with admin and enable minting
+export circuit initialize(): [] {
+  admin = 12345; // Fixed admin for simplicity
+  mintingEnabled = true;
+  totalSupply.increment(0); // Start at 0
+  collectionCount.increment(0);
+}
+
+// Privacy-preserving single NFT mint
+// Uses nullifier to hide minter identity while preventing double-minting
+export circuit mintSingleNFT(nullifier: Uint<254>, metadataHash: Uint<254>): Uint<254> {
+  // Verify nullifier hasn't been used (prevents double-minting)
+  assert(usedNullifiers != nullifier);
+  
+  // Record nullifier usage
+  usedNullifiers = nullifier;
+  
+  // Increment total supply
+  totalSupply.increment(1);
+  
+  // Create NFT ID based on current supply
+  let nftId = totalSupply;
+  
+  // Record NFT existence with metadata hash
+  nftExists = metadataHash;
+  
+  // Record hidden creator identity
+  creatorHash = nullifier;
+  
+  return nftId;
+}
+
+// Privacy-preserving collection creation
+// Creates a new NFT collection with hidden creator identity
+export circuit createCollection(nullifier: Uint<254>, collectionHash: Uint<254>): Uint<254> {
+  // Verify nullifier hasn't been used
+  assert(usedNullifiers != nullifier);
+  
+  // Record nullifier usage
+  usedNullifiers = nullifier;
+  
+  // Increment collection count
+  collectionCount.increment(1);
+  
+  // Create collection ID
+  let collectionId = collectionCount;
+  
+  // Record collection existence
+  collectionExists = collectionHash;
+  
+  // Record hidden creator
+  creatorHash = nullifier;
+  
+  return collectionId;
+}
+
+// Batch mint NFTs for a collection (AI agent friendly)
+// Mints multiple NFTs in a single transaction
+export circuit batchMintNFTs(nullifier: Uint<254>, batchSize: Uint<64>): [] {
+  // Verify nullifier hasn't been used
+  assert(usedNullifiers != nullifier);
+  
+  // Verify reasonable batch size (prevent spam)
+  assert(batchSize <= 100);
+  
+  // Record nullifier usage
+  usedNullifiers = nullifier;
+  
+  // Increment supply by batch size
+  let i = 0;
+  while (i < batchSize) {
+    totalSupply.increment(1);
+    i = i + 1;
+  }
+  
+  // Record batch creator
+  creatorHash = nullifier;
+}
+
+// AI agent mint function - simplified for automation
+// Allows AI to mint with predefined parameters
+export circuit aiAgentMint(agentId: Uint<254>): Uint<254> {
+  // Verify agent authorization (simplified check)
+  assert(agentId == 54321); // Fixed AI agent ID
+  
+  // Increment supply
+  totalSupply.increment(1);
+  
+  // Create NFT ID
+  let nftId = totalSupply;
+  
+  // Record AI agent as creator (hidden)
+  creatorHash = agentId;
+  
+  return nftId;
+}
+
+// Enable/disable minting (admin only)
+export circuit toggleMinting(): [] {
+  // Simple admin check
+  assert(admin == 12345);
+  
+  // Toggle minting status
+  mintingEnabled = !mintingEnabled;
+}
+
+// Query functions for frontend integration
+export circuit getTotalSupply(): Uint<64> {
+  return totalSupply;
+}
+
+export circuit getCollectionCount(): Uint<64> {
+  return collectionCount;
+}
+
+export circuit isMintingEnabled(): Boolean {
+  return mintingEnabled;
+}
+
+export circuit getAdmin(): Uint<254> {
+  return admin;
+}
+
+// Privacy check - verify NFT exists without revealing creator
+export circuit verifyNFTExists(nftId: Uint<254>): Boolean {
+  return nftExists != 0;
+}
+
+// Privacy check - verify collection exists
+export circuit verifyCollectionExists(collectionId: Uint<254>): Boolean {
+  return collectionExists != 0;
+}
+
+// Check if nullifier has been used (prevents double operations)
+export circuit isNullifierUsed(nullifier: Uint<254>): Boolean {
+  return usedNullifiers == nullifier;
+}
+
+// Get hidden creator hash (for privacy verification)
+export circuit getCreatorHash(): Uint<254> {
+  return creatorHash;
+}

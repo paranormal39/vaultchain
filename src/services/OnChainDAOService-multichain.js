@@ -1,5 +1,9 @@
 // Enhanced OnChainDAOService with Multi-Chain Support and Real Contract Integration
 import { midnightContractService } from './MidnightContractService.js';
+import { cardanoService } from './CardanoService.js';
+import { xrplService } from './XRPLService.js';
+import { xahauHooksService } from './XahauHooksService.js';
+import { MCP, MATTHEW, XARA, ADA as ADA_API } from '../config/endpoints.js';
 
 class OnChainDAOService {
   constructor() {
@@ -18,9 +22,9 @@ class OnChainDAOService {
       console.log('🔍 OnChainDAO - Fetching user wallet balance...')
       
       const endpoints = [
-        'http://localhost:3000/wallet/balance',
-        'http://localhost:3000/user/balance',
-        'http://localhost:3000/balance'
+        MCP.WALLET_BALANCE,
+        MCP.USER_BALANCE,
+        `${MCP.BASE}/balance`
       ]
       
       for (const endpoint of endpoints) {
@@ -90,7 +94,7 @@ class OnChainDAOService {
     try {
       console.log('🌐 OnChainDAO - Fetching multi-chain dashboard data...')
       
-      const response = await fetch('http://localhost:3001/dashboard/multichain')
+      const response = await fetch(MATTHEW.DASHBOARD)
       
       if (response.ok) {
         const data = await response.json()
@@ -115,7 +119,7 @@ class OnChainDAOService {
     try {
       console.log('🔗 OnChainDAO - Fetching XRPL wallets...')
       
-      const response = await fetch('http://localhost:3002/xrpl/wallets')
+      const response = await fetch(XARA.WALLETS)
       
       if (response.ok) {
         const data = await response.json()
@@ -147,7 +151,7 @@ class OnChainDAOService {
       // Call Matthew AI to process the deposit and create XRPL wallet
       if (targetChain.toLowerCase() === 'xrpl') {
         try {
-          const response = await fetch('http://localhost:3001/deposit/tdust', {
+          const response = await fetch(MATTHEW.DEPOSIT_TDUST, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -182,10 +186,10 @@ class OnChainDAOService {
       
       // Fallback to simulation for other chains or if AI fails
       const processingTimes = {
-        'xrpl': '2-3 minutes',
-        'ethereum': '5-10 minutes',
-        'polygon': '1-2 minutes',
-        'bsc': '1-2 minutes'
+        'xrpl':    '2-3 minutes',
+        'xahau':   '2-3 minutes',
+        'cardano': '1-2 minutes',
+        'midnight': '3-5 minutes'
       }
       
       const estimatedTime = processingTimes[targetChain.toLowerCase()] || '3-5 minutes'
@@ -220,7 +224,7 @@ class OnChainDAOService {
       }
       
       // Then try the MCP server
-      const response = await fetch('http://localhost:3000/wallet/balance')
+      const response = await fetch(MCP.WALLET_BALANCE)
       
       if (response.ok) {
         const data = await response.json()
@@ -305,7 +309,7 @@ class OnChainDAOService {
       console.log(`💸 OnChainDAO - Sending ${amount} DUST to ${toAddress} via Midnight SDK`)
       
       // Use real Midnight MCP server for on-chain transaction
-      const response = await fetch('http://localhost:3000/wallet/send', {
+      const response = await fetch(MCP.WALLET_SEND, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -398,6 +402,81 @@ class OnChainDAOService {
     }
   }
 
+  // === MULTI-CHAIN DASHBOARD (real data from all 3 chains) ===
+  async getDashboardData() {
+    try {
+      console.log('🌐 OnChainDAO - Fetching full multi-chain dashboard...')
+
+      const [midnightResult, cardanoResult, xrplResult, xahauResult] = await Promise.allSettled([
+        this.getTreasuryBalance(),
+        cardanoService.getDashboardData(),
+        xrplService.getDashboardData(),
+        xahauHooksService.getDashboardData()
+      ]);
+
+      const midnight = midnightResult.value || { success: false, balance: 0 };
+      const cardano  = cardanoResult.value  || { success: false };
+      const xrpl     = xrplResult.value     || { success: false };
+      const xahau    = xahauResult.value    || { success: false };
+
+      return {
+        success: true,
+        chains: {
+          midnight: {
+            balance:  midnight.balance || 0,
+            currency: 'DUST',
+            status:   midnight.status || 'unknown',
+            address:  midnight.address || this.contracts.daoTreasury,
+            network:  'Midnight TestNet'
+          },
+          cardano: {
+            balance:  cardano.wallet?.adaBalance || 0,
+            currency: 'ADA',
+            status:   cardano.wallet?.success ? 'connected' : 'demo',
+            address:  cardano.wallet?.address || null,
+            network:  cardano.network || 'testnet',
+            opportunities: cardano.opportunities?.opportunities || []
+          },
+          xrpl: {
+            balance:  parseFloat(xrpl.wallet?.xrpBalance || 0),
+            currency: 'XRP',
+            status:   xrpl.wallet?.success ? 'connected' : 'demo',
+            address:  xrpl.wallet?.address || null,
+            network:  xrpl.network || 'mainnet',
+            market:   xrpl.market?.data || {}
+          },
+          xahau: {
+            currency: 'XAH',
+            status:   xahau.demoMode ? 'demo' : 'connected',
+            network:  xahau.network || 'testnet',
+            hooks:    xahau.hooks   || {}
+          }
+        },
+        lastUpdated: new Date().toISOString()
+      };
+    } catch (error) {
+      console.error('❌ getDashboardData failed:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // === XAHAU HOOKS DELEGATION ===
+  async sendGuardedPayment(params) {
+    return xahauHooksService.sendGuardedPayment(params);
+  }
+
+  async checkMembership(address) {
+    return xahauHooksService.checkMembership(address);
+  }
+
+  async installHook(hookName, params) {
+    return xahauHooksService.installHook(hookName, params);
+  }
+
+  async updateFeeAllocation(allocations) {
+    return xahauHooksService.updateFeeAllocation(allocations);
+  }
+
   async getCryptoData() {
     return [
       {
@@ -410,16 +489,16 @@ class OnChainDAOService {
       {
         id: 'xrp',
         symbol: 'XRP',
-        name: 'XRP',
+        name: 'XRP / Xahau',
         price: 0.52,
         change24h: -1.8
       },
       {
-        id: 'ethereum',
-        symbol: 'ETH',
-        name: 'Ethereum',
-        price: 2650,
-        change24h: 3.1
+        id: 'cardano',
+        symbol: 'ADA',
+        name: 'Cardano',
+        price: 0.45,
+        change24h: 2.4
       }
     ]
   }

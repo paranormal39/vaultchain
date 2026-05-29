@@ -13,13 +13,15 @@ A revolutionary privacy-first decentralized autonomous organization (DAO) built 
 
 ### **🤖 AI Treasury Management**
 - **Matthew AI**: Treasury Manager specialist for Midnight Network operations
-- **Xara AI**: XRPL specialist for cross-chain wallet management
+- **Xara AI**: XRPL/Xahau specialist for cross-chain wallet management
+- **Ada AI**: Cardano ecosystem specialist for DeFi and staking opportunities
 - Intelligent fund allocation and risk assessment
 - Automated cross-chain wallet creation
 
 ### **🌉 Multi-Chain Support**
-- **Midnight Network**: Primary treasury holding (DUST tokens)
-- **XRPL Network**: Cross-chain wallet management
+- **Midnight Network**: Primary treasury holding (DUST tokens) — privacy-first ZK contracts
+- **XRPL / Xahau**: Cross-chain wallet management + Xahau Hooks (on-chain enforcement)
+- **Cardano**: DeFi, native-token analysis and staking delegation (ADA)
 - Automatic XRPL wallet creation when users deposit TDUST
 - Real-time multi-chain portfolio tracking
 

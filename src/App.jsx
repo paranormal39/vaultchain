@@ -2,6 +2,7 @@ import { useState } from 'react'
 import NFTSelector from './components/NFTSelector'
 import ZKProofGenerator from './components/ZKProofGenerator'
 import ModernOnChainDashboard from './components/ModernOnChainDashboard'
+import EnhancedVaultChainDashboard from './components/EnhancedVaultChainDashboard'
 import VaultchainLanding from './components/VaultchainLanding'
 import LaceWalletConnect from './components/LaceWalletConnect'
 import './App.css'
@@ -13,6 +14,7 @@ function App() {
   const [selectedNFT, setSelectedNFT] = useState(null)
   const [zkProof, setZkProof] = useState(null)
   const [accessGranted, setAccessGranted] = useState(false)
+  const [useEnhancedDashboard, setUseEnhancedDashboard] = useState(true) // Toggle for enhanced features
 
   if (showLanding) {
     return <VaultchainLanding onEnterApp={() => setShowLanding(false)} />
@@ -116,9 +118,43 @@ function App() {
         />
       )}
 
-      {/* Step 3: DAO Dashboard */}
+      {/* Step 3: DAO Dashboard - Enhanced or Original */}
       {accessGranted && (
-        <ModernOnChainDashboard />
+        <div>
+          {/* Dashboard Toggle */}
+          <div className="dashboard-toggle" style={{
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            zIndex: 1000,
+            background: 'rgba(0,0,0,0.8)',
+            padding: '10px',
+            borderRadius: '8px',
+            border: '1px solid #444'
+          }}>
+            <button
+              onClick={() => setUseEnhancedDashboard(!useEnhancedDashboard)}
+              style={{
+                background: useEnhancedDashboard ? '#8B5CF6' : '#374151',
+                color: 'white',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '12px'
+              }}
+            >
+              {useEnhancedDashboard ? '🚀 Enhanced (Midnight Kitties)' : '📊 Original Dashboard'}
+            </button>
+          </div>
+
+          {/* Render appropriate dashboard */}
+          {useEnhancedDashboard ? (
+            <EnhancedVaultChainDashboard />
+          ) : (
+            <ModernOnChainDashboard />
+          )}
+        </div>
       )}
     </div>
   )

@@ -10,8 +10,15 @@
     "start:frontend": "npm run dev",
     "dev": "vite",
     "build": "vite build",
+    "build:prod": "NODE_ENV=production vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "node evernode/deploy.js deploy",
+    "deploy:build": "node evernode/deploy.js build",
+    "deploy:status": "node evernode/deploy.js status",
+    "deploy:teardown": "node evernode/deploy.js teardown",
+    "health": "node evernode/health-check.js",
+    "health:json": "node evernode/health-check.js --json --exit-code"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.10",
@@ -19,8 +26,9 @@
     "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "rxjs": "^7.8.1",
     "tailwindcss": "^4.1.12",
-    "xrpl": "^4.4.0"
+    "xrpl": "^4.4.2"
   },
   "devDependencies": {
     "@elizaos/cli": "^1.5.8",

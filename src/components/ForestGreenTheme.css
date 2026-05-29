@@ -1,0 +1,367 @@
+/**
+ * @file ForestGreenTheme.css
+ * @description Modern Forest Green Color Palette for VaultChain Platform
+ * 
+ * Color Palette:
+ * - Primary Forest: #1B4332 (Deep Forest Green)
+ * - Secondary Forest: #2D5A3D (Medium Forest)
+ * - Accent Forest: #40916C (Bright Forest)
+ * - Light Forest: #52B788 (Light Green)
+ * - Mint: #74C69D (Soft Mint)
+ * - Sage: #95D5B2 (Pale Sage)
+ * - Background Dark: #081C15 (Almost Black Forest)
+ * - Background Medium: #1B4332 (Dark Forest)
+ * - Text Light: #D8F3DC (Light Mint Text)
+ * - Text Medium: #B7E4C7 (Medium Mint Text)
+ */
+
+:root {
+  /* Forest Green Color Palette */
+  --forest-dark: #081C15;
+  --forest-primary: #1B4332;
+  --forest-secondary: #2D5A3D;
+  --forest-accent: #40916C;
+  --forest-light: #52B788;
+  --forest-mint: #74C69D;
+  --forest-sage: #95D5B2;
+  --forest-pale: #B7E4C7;
+  --forest-text: #D8F3DC;
+  
+  /* Gradient Combinations */
+  --gradient-forest: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest-primary) 50%, var(--forest-secondary) 100%);
+  --gradient-mint: linear-gradient(135deg, var(--forest-accent) 0%, var(--forest-light) 50%, var(--forest-mint) 100%);
+  --gradient-sage: linear-gradient(135deg, var(--forest-mint) 0%, var(--forest-sage) 100%);
+  
+  /* Glass Effects */
+  --glass-forest: rgba(27, 67, 50, 0.15);
+  --glass-forest-border: rgba(64, 145, 108, 0.2);
+  --glass-forest-hover: rgba(45, 90, 61, 0.25);
+  
+  /* Shadows */
+  --shadow-forest: 0 8px 32px rgba(8, 28, 21, 0.3);
+  --shadow-forest-lg: 0 20px 60px rgba(8, 28, 21, 0.4);
+  --glow-forest: 0 0 20px rgba(64, 145, 108, 0.3);
+}
+
+/* Global Forest Theme */
+.forest-theme {
+  background: var(--gradient-forest);
+  color: var(--forest-text);
+  min-height: 100vh;
+}
+
+/* Glass Morphism Components */
+.glass-forest {
+  background: var(--glass-forest);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-forest-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-forest);
+}
+
+.glass-forest-dark {
+  background: rgba(8, 28, 21, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-forest-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-forest);
+}
+
+.glass-forest:hover {
+  background: var(--glass-forest-hover);
+  border-color: var(--forest-accent);
+  box-shadow: var(--shadow-forest-lg);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Modern Buttons */
+.btn-forest-primary {
+  background: var(--gradient-mint);
+  color: var(--forest-dark);
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-forest);
+}
+
+.btn-forest-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-forest-lg), var(--glow-forest);
+}
+
+.btn-forest-secondary {
+  background: transparent;
+  color: var(--forest-mint);
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 2px solid var(--forest-accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-forest-secondary:hover {
+  background: var(--forest-accent);
+  color: var(--forest-dark);
+  transform: translateY(-2px);
+}
+
+/* Navigation Styles */
+.nav-forest {
+  background: var(--glass-forest-dark);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-forest-border);
+}
+
+.nav-forest .nav-item {
+  color: var(--forest-pale);
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-forest .nav-item:hover {
+  color: var(--forest-text);
+  background: var(--glass-forest);
+  border-bottom-color: var(--forest-accent);
+}
+
+.nav-forest .nav-item.active {
+  color: var(--forest-text);
+  background: var(--glass-forest-hover);
+  border-bottom-color: var(--forest-mint);
+  box-shadow: var(--glow-forest);
+}
+
+/* Card Styles */
+.card-forest {
+  background: var(--glass-forest);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-forest-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-forest);
+  transition: all 0.3s ease;
+}
+
+.card-forest:hover {
+  border-color: var(--forest-accent);
+  box-shadow: var(--shadow-forest-lg);
+  transform: translateY(-4px);
+}
+
+.card-forest-header {
+  border-bottom: 1px solid var(--glass-forest-border);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.card-forest-title {
+  color: var(--forest-text);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.card-forest-subtitle {
+  color: var(--forest-pale);
+  font-size: 0.875rem;
+  margin: 4px 0 0 0;
+}
+
+/* Status Indicators */
+.status-forest-success {
+  color: var(--forest-mint);
+  background: rgba(116, 198, 157, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(116, 198, 157, 0.3);
+}
+
+.status-forest-warning {
+  color: #FFD60A;
+  background: rgba(255, 214, 10, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 214, 10, 0.3);
+}
+
+.status-forest-error {
+  color: #FF6B6B;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* Input Styles */
+.input-forest {
+  background: var(--glass-forest);
+  border: 1px solid var(--glass-forest-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: var(--forest-text);
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.input-forest:focus {
+  outline: none;
+  border-color: var(--forest-accent);
+  box-shadow: 0 0 0 3px rgba(64, 145, 108, 0.1);
+}
+
+.input-forest::placeholder {
+  color: var(--forest-pale);
+}
+
+/* Metrics and Stats */
+.metric-forest {
+  text-align: center;
+  padding: 20px;
+}
+
+.metric-forest-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--forest-mint);
+  display: block;
+}
+
+.metric-forest-label {
+  font-size: 0.875rem;
+  color: var(--forest-pale);
+  margin-top: 4px;
+}
+
+.metric-forest-change {
+  font-size: 0.75rem;
+  margin-top: 8px;
+}
+
+.metric-forest-change.positive {
+  color: var(--forest-mint);
+}
+
+.metric-forest-change.negative {
+  color: #FF6B6B;
+}
+
+/* Progress Bars */
+.progress-forest {
+  background: rgba(27, 67, 50, 0.3);
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress-forest-bar {
+  background: var(--gradient-mint);
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* Animations */
+@keyframes forest-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(64, 145, 108, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(64, 145, 108, 0.4);
+  }
+}
+
+.animate-forest-pulse {
+  animation: forest-pulse 2s ease-in-out infinite;
+}
+
+@keyframes forest-glow {
+  0%, 100% {
+    border-color: var(--forest-accent);
+  }
+  50% {
+    border-color: var(--forest-mint);
+    box-shadow: var(--glow-forest);
+  }
+}
+
+.animate-forest-glow {
+  animation: forest-glow 3s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-forest {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  .btn-forest-primary,
+  .btn-forest-secondary {
+    padding: 10px 20px;
+    font-size: 0.875rem;
+  }
+  
+  .metric-forest-value {
+    font-size: 1.5rem;
+  }
+}
+
+/* Special Effects */
+.forest-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(116, 198, 157, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Network Specific Colors */
+.network-midnight {
+  border-left: 4px solid var(--forest-accent);
+}
+
+.network-solana {
+  border-left: 4px solid var(--forest-mint);
+}
+
+.network-xrpl {
+  border-left: 4px solid var(--forest-sage);
+}
+
+/* Agent Status Colors */
+.agent-matthew {
+  background: linear-gradient(135deg, var(--forest-primary), var(--forest-accent));
+}
+
+.agent-nova {
+  background: linear-gradient(135deg, var(--forest-accent), var(--forest-mint));
+}
+
+.agent-xara {
+  background: linear-gradient(135deg, var(--forest-mint), var(--forest-sage));
+}

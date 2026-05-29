@@ -107,6 +107,8 @@ midnight-mcp-server/.storage/
 *.key
 *.pem
 wallet-*.json
+solana-wallet.json
+cardano-wallet.json
 private-keys/
 
 # Local development

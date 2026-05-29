@@ -1,4 +1,6 @@
 // Real Midnight Network Contract Integration Service
+import { MCP } from '../config/endpoints.js';
+
 class MidnightContractService {
   constructor() {
     this.contracts = {
@@ -8,7 +10,7 @@ class MidnightContractService {
       daoGovernance: '02003f8e2a8b2724669742c076fa2f8112f29bd6100c4753802afc3ee2fae5451817'
     };
     
-    this.mcpBaseUrl = 'http://localhost:3000';
+    this.mcpBaseUrl = MCP.BASE;
   }
 
   // === REAL CONTRACT CALL HELPER ===

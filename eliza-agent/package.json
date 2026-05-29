@@ -27,7 +27,7 @@
     "@elizaos/plugin-knowledge": "latest",
     "@elizaos/plugin-mcp": "^1.0.8",
     "@elizaos/plugin-node": "latest",
-    "@elizaos/plugin-solana": "latest",
+    "@elizaos/plugin-cardano": "latest",
     "@elizaos/plugin-web-search": "latest",
     "axios": "^1.12.2",
     "cors": "^2.8.5",

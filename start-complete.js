@@ -25,27 +25,38 @@ class VaultChainLauncher {
   }
 
   constructor() {
+    const MCP_PORT      = parseInt(process.env.VITE_MCP_PORT      || '3000',  10);
+    const MATTHEW_PORT  = parseInt(process.env.VITE_MATTHEW_PORT  || '3001',  10);
+    const FRONTEND_PORT = parseInt(process.env.VITE_FRONTEND_PORT || '5173',  10);
+
     this.services = [
       {
         name: 'Midnight MCP Server',
         command: 'npm',
         args: ['run', 'dev'],
         cwd: path.join(__dirname, 'midnight-mcp-server'),
-        port: 3000,
+        port: MCP_PORT,
         description: 'Real Midnight Network blockchain integration',
         healthEndpoint: '/health',
-        env: {}
+        env: {
+          PORT: String(MCP_PORT)
+        }
       },
       {
-        name: 'AI Agent System',
+        name: 'AI Agent System (Matthew / Xara / Ada)',
         command: 'npm',
         args: ['start'],
         cwd: path.join(__dirname, 'eliza-agent'),
-        port: 3001,
-        description: 'ElizaOS autonomous treasury management',
+        port: MATTHEW_PORT,
+        description: 'ElizaOS autonomous treasury management — Midnight · XRPL · Cardano',
         healthEndpoint: null,
         env: {
-          OPENAI_API_KEY: process.env.OPENAI_API_KEY || this.getOpenAIKey()
+          OPENAI_API_KEY:     process.env.OPENAI_API_KEY     || this.getOpenAIKey(),
+          BLOCKFROST_API_KEY: process.env.BLOCKFROST_API_KEY || '',
+          XRPL_WALLET_SEED:   process.env.XRPL_WALLET_SEED   || '',
+          XAHAU_WALLET_SEED:  process.env.XAHAU_WALLET_SEED  || '',
+          VITE_MCP_URL:       process.env.VITE_MCP_URL       || `http://localhost:${MCP_PORT}`,
+          VITE_MATTHEW_URL:   process.env.VITE_MATTHEW_URL   || `http://localhost:${MATTHEW_PORT}`,
         }
       },
       {
@@ -53,10 +64,13 @@ class VaultChainLauncher {
         command: 'npm',
         args: ['run', 'dev'],
         cwd: __dirname,
-        port: 5173,
-        description: 'Modern DAO treasury dashboard',
+        port: FRONTEND_PORT,
+        description: 'Privacy-first DAO treasury dashboard',
         healthEndpoint: null,
-        env: {}
+        env: {
+          VITE_MCP_URL:     process.env.VITE_MCP_URL     || `http://localhost:${MCP_PORT}`,
+          VITE_MATTHEW_URL: process.env.VITE_MATTHEW_URL || `http://localhost:${MATTHEW_PORT}`,
+        }
       }
     ];
     this.processes = [];
@@ -76,20 +90,26 @@ class VaultChainLauncher {
       await this.sleep(3000);
     }
     
+    const mcpUrl      = process.env.VITE_MCP_URL     || `http://localhost:${process.env.VITE_MCP_PORT     || 3000}`;
+    const matthewUrl  = process.env.VITE_MATTHEW_URL || `http://localhost:${process.env.VITE_MATTHEW_PORT || 3001}`;
+    const frontendUrl = `http://localhost:${process.env.VITE_FRONTEND_PORT || 5173}`;
+
     console.log('\n✅ VaultChain DAO System Started Successfully!');
-    console.log('\n🌙 Complete System Architecture:');
-    console.log('   🌙 Midnight MCP Server:  http://localhost:3000 (Real blockchain integration)');
-    console.log('   🤖 AI Agent System:      http://localhost:3001 (ElizaOS autonomous agents)');
-    console.log('   🎨 VaultChain Frontend:  http://localhost:5173 (Modern DAO dashboard)');
-    
-    console.log('\n🏛️ VaultChain Features:');
-    console.log('   ✅ Privacy-first ZK membership verification');
-    console.log('   ✅ Real Midnight Network wallet integration');
-    console.log('   ✅ AI-powered treasury management');
-    console.log('   ✅ Anonymous voting with ZK proofs');
-    console.log('   ✅ Professional treasury dashboard');
-    console.log('   ✅ Multi-chain compatibility (XRPL demo mode)');
-    
+    console.log('\n� Complete System Architecture:');
+    console.log(`   🌙 Midnight MCP Server:        ${mcpUrl}  (wallet + contracts)`);
+    console.log(`   🤖 AI Agents (Matthew/Xara/Ada): ${matthewUrl} (ElizaOS)`);
+    console.log(`   🎨 VaultChain Frontend:          ${frontendUrl} (DAO dashboard)`);
+
+    console.log('\n�️ VaultChain Features:');
+    console.log('   ✅ Privacy-first ZK membership (Midnight Network)');
+    console.log('   ✅ Real Midnight Network wallet + contract integration');
+    console.log('   ✅ Cardano / Blockfrost DeFi & staking (Ada Agent)');
+    console.log('   ✅ XRPL live ledger data (Xara Agent)');
+    console.log('   ✅ Xahau Hooks: TREASURY_GUARD · MEMBERSHIP_GATE · FEE_ROUTER');
+    console.log('   ✅ AI-powered treasury management (Matthew Agent)');
+    console.log('   ✅ Anonymous governance voting with ZK proofs');
+    console.log('   ✅ Evernode HotPocket deployment ready');
+
     console.log('\n🎯 Ready for:');
     console.log('   • DoraHacks AI Treasury Management Challenge');
     console.log('   • Midnight Network Privacy First Challenge');
@@ -140,8 +160,8 @@ class VaultChainLauncher {
   async checkDependencies() {
     const services = [
       { name: 'MCP Server', path: 'midnight-mcp-server', manager: 'yarn' },
-      { name: 'AI Agent', path: 'vaultchain/eliza-agent', manager: 'npm' },
-      { name: 'Frontend', path: 'vaultchain', manager: 'npm' }
+      { name: 'AI Agent', path: 'eliza-agent', manager: 'npm' },
+      { name: 'Frontend', path: '.', manager: 'npm' }
     ];
     
     for (const service of services) {
@@ -295,10 +315,13 @@ class VaultChainLauncher {
       }
     }
     
+    const mcpBase  = process.env.VITE_MCP_URL     || 'http://localhost:3000';
+    const agentBase = process.env.VITE_MATTHEW_URL || 'http://localhost:3001';
+    const feBase    = `http://localhost:${process.env.VITE_FRONTEND_PORT || 5173}`;
     console.log('\n🔗 System URLs:');
-    console.log('   Midnight MCP Server: http://localhost:3000');
-    console.log('   ElizaOS AI Agent:    http://localhost:3001');
-    console.log('   VaultChain Frontend: http://localhost:5173');
+    console.log(`   Midnight MCP Server: ${mcpBase}`);
+    console.log(`   ElizaOS AI Agents:   ${agentBase}`);
+    console.log(`   VaultChain Frontend: ${feBase}`);
   }
 }
 

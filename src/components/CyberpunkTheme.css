@@ -1,0 +1,339 @@
+/**
+ * @file CyberpunkTheme.css
+ * @description Modern Cyberpunk Color Palette - Clean & Minimal
+ * 
+ * Color Palette:
+ * - Primary Dark: #0A0E1A (Deep Space Blue)
+ * - Secondary Dark: #1A1F2E (Dark Slate)
+ * - Accent Electric: #00D4FF (Electric Blue)
+ * - Accent Neon: #7C3AED (Electric Purple)
+ * - Light Blue: #60A5FA (Sky Blue)
+ * - Soft Blue: #93C5FD (Pale Blue)
+ * - Text Primary: #F8FAFC (Clean White)
+ * - Text Secondary: #CBD5E1 (Light Gray)
+ * - Background: #020617 (Almost Black)
+ */
+
+:root {
+  /* Cyberpunk Color Palette */
+  --cyber-black: #020617;
+  --cyber-dark: #0A0E1A;
+  --cyber-slate: #1A1F2E;
+  --cyber-electric: #00D4FF;
+  --cyber-purple: #7C3AED;
+  --cyber-sky: #60A5FA;
+  --cyber-pale: #93C5FD;
+  --cyber-text: #F8FAFC;
+  --cyber-gray: #CBD5E1;
+  
+  /* Gradients */
+  --gradient-cyber: linear-gradient(135deg, var(--cyber-black) 0%, var(--cyber-dark) 50%, var(--cyber-slate) 100%);
+  --gradient-electric: linear-gradient(135deg, var(--cyber-electric) 0%, var(--cyber-purple) 100%);
+  --gradient-sky: linear-gradient(135deg, var(--cyber-sky) 0%, var(--cyber-pale) 100%);
+  
+  /* Glass Effects */
+  --glass-cyber: rgba(26, 31, 46, 0.3);
+  --glass-cyber-border: rgba(0, 212, 255, 0.2);
+  --glass-cyber-hover: rgba(26, 31, 46, 0.5);
+  
+  /* Shadows */
+  --shadow-cyber: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-cyber-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --glow-cyber: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+/* Global Cyberpunk Theme */
+.cyber-theme {
+  background: var(--gradient-cyber);
+  color: var(--cyber-text);
+  min-height: 100vh;
+}
+
+/* Clean Glass Components */
+.glass-cyber {
+  background: var(--glass-cyber);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-cyber-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-cyber);
+}
+
+.glass-cyber-dark {
+  background: rgba(10, 14, 26, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-cyber-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-cyber);
+}
+
+.glass-cyber:hover {
+  background: var(--glass-cyber-hover);
+  border-color: var(--cyber-electric);
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* Clean Buttons */
+.btn-cyber-primary {
+  background: var(--gradient-electric);
+  color: var(--cyber-dark);
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cyber-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--glow-cyber);
+}
+
+.btn-cyber-secondary {
+  background: transparent;
+  color: var(--cyber-electric);
+  font-weight: 400;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--cyber-electric);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cyber-secondary:hover {
+  background: var(--cyber-electric);
+  color: var(--cyber-dark);
+}
+
+/* Clean Navigation */
+.nav-cyber {
+  background: var(--glass-cyber-dark);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-cyber-border);
+}
+
+.nav-cyber .nav-item {
+  color: var(--cyber-gray);
+  padding: 12px 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-cyber .nav-item:hover {
+  color: var(--cyber-text);
+  background: var(--glass-cyber);
+}
+
+.nav-cyber .nav-item.active {
+  color: var(--cyber-text);
+  background: var(--glass-cyber-hover);
+  border-bottom-color: var(--cyber-electric);
+}
+
+/* Clean Cards */
+.card-cyber {
+  background: var(--glass-cyber);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-cyber-border);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--shadow-cyber);
+  transition: all 0.2s ease;
+}
+
+.card-cyber:hover {
+  border-color: var(--cyber-electric);
+  transform: translateY(-2px);
+}
+
+.card-cyber-header {
+  border-bottom: 1px solid var(--glass-cyber-border);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.card-cyber-title {
+  color: var(--cyber-text);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.card-cyber-subtitle {
+  color: var(--cyber-gray);
+  font-size: 0.85rem;
+  margin: 4px 0 0 0;
+}
+
+/* Status Indicators */
+.status-cyber-success {
+  color: var(--cyber-electric);
+  background: rgba(0, 212, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.status-cyber-warning {
+  color: #FCD34D;
+  background: rgba(252, 211, 77, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  border: 1px solid rgba(252, 211, 77, 0.3);
+}
+
+.status-cyber-error {
+  color: #F87171;
+  background: rgba(248, 113, 113, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+/* Clean Inputs */
+.input-cyber {
+  background: var(--glass-cyber);
+  border: 1px solid var(--glass-cyber-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: var(--cyber-text);
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.input-cyber:focus {
+  outline: none;
+  border-color: var(--cyber-electric);
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1);
+}
+
+.input-cyber::placeholder {
+  color: var(--cyber-gray);
+}
+
+/* Clean Metrics */
+.metric-cyber {
+  text-align: center;
+  padding: 16px;
+}
+
+.metric-cyber-value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--cyber-electric);
+  display: block;
+}
+
+.metric-cyber-label {
+  font-size: 0.8rem;
+  color: var(--cyber-gray);
+  margin-top: 4px;
+}
+
+.metric-cyber-change {
+  font-size: 0.7rem;
+  margin-top: 6px;
+}
+
+.metric-cyber-change.positive {
+  color: var(--cyber-electric);
+}
+
+.metric-cyber-change.negative {
+  color: #F87171;
+}
+
+/* Clean Progress Bars */
+.progress-cyber {
+  background: rgba(26, 31, 46, 0.5);
+  border-radius: 6px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-cyber-bar {
+  background: var(--gradient-electric);
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+/* Subtle Animations */
+@keyframes cyber-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  }
+}
+
+.animate-cyber-pulse {
+  animation: cyber-pulse 3s ease-in-out infinite;
+}
+
+@keyframes cyber-glow {
+  0%, 100% {
+    border-color: var(--cyber-electric);
+  }
+  50% {
+    border-color: var(--cyber-purple);
+    box-shadow: var(--glow-cyber);
+  }
+}
+
+.animate-cyber-glow {
+  animation: cyber-glow 4s ease-in-out infinite;
+}
+
+/* Network Colors */
+.network-midnight {
+  border-left: 3px solid var(--cyber-purple);
+}
+
+.network-solana {
+  border-left: 3px solid var(--cyber-electric);
+}
+
+.network-xrpl {
+  border-left: 3px solid var(--cyber-sky);
+}
+
+/* Agent Colors */
+.agent-matthew {
+  background: linear-gradient(135deg, var(--cyber-dark), var(--cyber-purple));
+}
+
+.agent-nova {
+  background: linear-gradient(135deg, var(--cyber-slate), var(--cyber-electric));
+}
+
+.agent-xara {
+  background: linear-gradient(135deg, var(--cyber-dark), var(--cyber-sky));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-cyber {
+    padding: 16px;
+    border-radius: 6px;
+  }
+  
+  .btn-cyber-primary,
+  .btn-cyber-secondary {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+  
+  .metric-cyber-value {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,30 @@
+# ── VaultChain / Frontend (SPA) ───────────────────────────────────────────────
+# Multi-stage: build Vite SPA, serve with express-static in production.
+# Build: docker build -f evernode/Dockerfile.frontend -t vaultchain/frontend:latest .
+
+# ── Stage 1: build ────────────────────────────────────────────────────────────
+FROM node:20-alpine AS builder
+WORKDIR /build
+
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ── Stage 2: serve ────────────────────────────────────────────────────────────
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+RUN npm install -g serve
+
+COPY --from=builder /build/dist ./dist
+
+EXPOSE 5173
+
+ENV NODE_ENV=production
+
+HEALTHCHECK --interval=30s --timeout=10s \
+  CMD wget -qO- http://localhost:5173/ || exit 1
+
+CMD ["serve", "-s", "dist", "-l", "5173"]

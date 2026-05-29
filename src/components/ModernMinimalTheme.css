@@ -1,0 +1,493 @@
+/**
+ * @file ModernMinimalTheme.css
+ * @description Ultra-Clean Material Design 3 Inspired Theme
+ * 
+ * Design Philosophy: Less is More
+ * - Monochromatic grayscale with single accent color
+ * - Clean typography and generous white space
+ * - Subtle shadows and minimal borders
+ * - Focus on content over decoration
+ */
+
+:root {
+  /* Monochromatic Grayscale Palette */
+  --surface-0: #FFFFFF;
+  --surface-1: #F8F9FA;
+  --surface-2: #F1F3F4;
+  --surface-3: #E8EAED;
+  --surface-4: #DADCE0;
+  --surface-5: #BDC1C6;
+  
+  --text-primary: #202124;
+  --text-secondary: #5F6368;
+  --text-tertiary: #80868B;
+  --text-disabled: #9AA0A6;
+  
+  --border-light: #E8EAED;
+  --border-medium: #DADCE0;
+  --border-strong: #BDC1C6;
+  
+  /* Single Accent Color - Refined Blue */
+  --accent-primary: #1A73E8;
+  --accent-light: #4285F4;
+  --accent-lighter: #E8F0FE;
+  --accent-dark: #1557B0;
+  
+  /* Semantic Colors */
+  --success: #137333;
+  --success-light: #E6F4EA;
+  --warning: #F9AB00;
+  --warning-light: #FEF7E0;
+  --error: #D93025;
+  --error-light: #FCE8E6;
+  
+  /* Shadows */
+  --shadow-1: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --shadow-2: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+  --shadow-3: 0 4px 8px 3px rgba(60, 64, 67, 0.15), 0 1px 3px rgba(60, 64, 67, 0.3);
+  --shadow-4: 0 6px 10px 4px rgba(60, 64, 67, 0.15), 0 2px 3px rgba(60, 64, 67, 0.3);
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+}
+
+/* Global Theme */
+.minimal-theme {
+  background: var(--surface-0);
+  color: var(--text-primary);
+  font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Typography */
+.text-display {
+  font-size: 2.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.text-headline {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.text-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.text-body {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.text-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Cards */
+.card-minimal {
+  background: var(--surface-0);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  padding: var(--space-lg);
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.card-minimal:hover {
+  box-shadow: var(--shadow-2);
+  border-color: var(--border-medium);
+}
+
+.card-minimal-elevated {
+  background: var(--surface-0);
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+  padding: var(--space-lg);
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.card-minimal-elevated:hover {
+  box-shadow: var(--shadow-3);
+}
+
+.card-header {
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  box-shadow: var(--shadow-1);
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+  box-shadow: var(--shadow-2);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background: var(--accent-lighter);
+  border-color: var(--accent-primary);
+}
+
+.btn-text {
+  background: transparent;
+  color: var(--accent-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.btn-text:hover {
+  background: var(--accent-lighter);
+}
+
+/* Navigation */
+.nav-minimal {
+  background: var(--surface-0);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.nav-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 16px 20px;
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  white-space: nowrap;
+  position: relative;
+}
+
+.nav-tab:hover {
+  color: var(--text-primary);
+  background: var(--surface-1);
+}
+
+.nav-tab.active {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+}
+
+.nav-tab .badge {
+  background: var(--accent-primary);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: var(--space-xs);
+}
+
+/* Inputs */
+.input-minimal {
+  background: var(--surface-0);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  padding: 12px 16px;
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  width: 100%;
+}
+
+.input-minimal:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px var(--accent-lighter);
+  outline: none;
+}
+
+.input-minimal::placeholder {
+  color: var(--text-disabled);
+}
+
+/* Status Indicators */
+.status-success {
+  background: var(--success-light);
+  color: var(--success);
+  border: 1px solid var(--success);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+
+.status-warning {
+  background: var(--warning-light);
+  color: var(--warning);
+  border: 1px solid var(--warning);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+
+.status-error {
+  background: var(--error-light);
+  color: var(--error);
+  border: 1px solid var(--error);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+
+/* Metrics */
+.metric-card {
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.metric-value {
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: var(--space-xs);
+}
+
+.metric-label {
+  color: var(--text-tertiary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-change {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: var(--space-xs);
+}
+
+.metric-change.positive {
+  color: var(--success);
+}
+
+.metric-change.negative {
+  color: var(--error);
+}
+
+/* Lists */
+.list-minimal {
+  background: var(--surface-0);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.list-item {
+  border-bottom: 1px solid var(--border-light);
+  padding: var(--space-md);
+  transition: background-color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item:hover {
+  background: var(--surface-1);
+}
+
+/* Progress */
+.progress-minimal {
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  height: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background: var(--accent-primary);
+  height: 100%;
+  transition: width 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Dividers */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: var(--space-lg) 0;
+}
+
+/* Utilities */
+.surface-1 { background: var(--surface-1); }
+.surface-2 { background: var(--surface-2); }
+.surface-3 { background: var(--surface-3); }
+
+.text-accent { color: var(--accent-primary); }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-error { color: var(--error); }
+
+.border-light { border-color: var(--border-light); }
+.border-medium { border-color: var(--border-medium); }
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-tabs {
+    padding: 0 var(--space-md);
+  }
+  
+  .container {
+    padding: 0 var(--space-md);
+  }
+  
+  .card-minimal,
+  .card-minimal-elevated {
+    padding: var(--space-md);
+  }
+}
+
+/* Network Specific Accents */
+.network-midnight {
+  border-left: 3px solid #6366F1;
+}
+
+.network-solana {
+  border-left: 3px solid var(--accent-primary);
+}
+
+.network-xrpl {
+  border-left: 3px solid #10B981;
+}
+
+/* Agent Cards */
+.agent-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.agent-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-primary);
+}
+
+.agent-matthew::before {
+  background: #6366F1;
+}
+
+.agent-nova::before {
+  background: var(--accent-primary);
+}
+
+.agent-xara::before {
+  background: #10B981;
+}
